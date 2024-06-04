@@ -1800,10 +1800,10 @@ def kdeplot(
 
     p._attach(ax, allowed_types=["numeric", "datetime"], log_scale=log_scale)
 
-    try:
+    if "transform" in kwargs:
         transform = kwargs.pop("transform")
-    except:
-        pass
+    else:
+        transform = None
 
     method = ax.fill_between if fill else ax.plot
     color = _default_color(method, hue, color, kwargs)
