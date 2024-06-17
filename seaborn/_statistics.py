@@ -249,7 +249,7 @@ def _fast_kde_2d(x, y, gridsize=(128, 128), weights=None, circular=False):
     ymin, ymax = y.min(), y.max()
 
     len_x = len(x)
-    if not weights:
+    if weights is None:
         weights = np.ones(len_x)
     n_x, n_y = gridsize
 
