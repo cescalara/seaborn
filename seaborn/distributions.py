@@ -1077,6 +1077,7 @@ class _DistributionPlotter(VectorPlotter):
         cbar_ax,
         cbar_kws,
         estimate_kws,
+        boundaries=False,
         **contour_kws,
     ):
 
@@ -1109,7 +1110,11 @@ class _DistributionPlotter(VectorPlotter):
             singular = math.isclose(min_variance, 0)
             try:
                 if not singular:
-                    density, support = estimator(*observations, weights=weights)
+                    density, support = estimator(
+                        *observations,
+                        weights=weights,
+                        boundaries=boundaries,
+                    )
             except np.linalg.LinAlgError:
                 # Testing for 0 variance doesn't catch all cases where scipy raises,
                 # but we can also get a ValueError, so we need this convoluted approach
@@ -1697,6 +1702,7 @@ def kdeplot(
     cbar_ax=None,
     cbar_kws=None,
     ax=None,
+    boundaries=False,
     **kwargs,
 ):
 
@@ -1853,6 +1859,7 @@ def kdeplot(
             cbar_ax=cbar_ax,
             cbar_kws=cbar_kws,
             estimate_kws=estimate_kws,
+            boundaries=boundaries,
             **kwargs,
         )
 
